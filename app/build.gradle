@@ -1,0 +1,51 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'com.ecarx.carmedia'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.ecarx.carmedia"
+        minSdk 28
+        targetSdk 28
+        versionCode 8
+        versionName "1.3.4"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('release.keystore')
+            storePassword System.getenv('KEYSTORE_PASS') ?: 'onepvegeely'
+            keyAlias System.getenv('KEY_ALIAS') ?: 'onepve'
+            keyPassword System.getenv('KEY_PASS') ?: 'onepvegeely'
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
+            enableV4Signing = false
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+        }
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
